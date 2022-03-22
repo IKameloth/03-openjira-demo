@@ -1,2 +1,4 @@
 // archivo barril
-export * from "./UiContext";
+export * from "./UIContext";
+export * from "./UIProvider";
+export * from "./uiReducer";
