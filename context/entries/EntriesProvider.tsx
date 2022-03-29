@@ -10,24 +10,7 @@ export interface EntriesState {
 
 const ENTRIES_INIT_STATE: EntriesState = {
   entries: [
-    {
-      _id: uuidv4(),
-      description: "Esto es una descripcion default 1",
-      status: "pending",
-      createdAt: Date.now(),
-    },
-    {
-      _id: uuidv4(),
-      description: "Esto es una descripcion default 2",
-      status: "in-progress",
-      createdAt: Date.now() - 1000000,
-    },
-    {
-      _id: uuidv4(),
-      description: "Esto es una descripcion default 3",
-      status: "finished",
-      createdAt: Date.now() - 100000,
-    },
+    
   ],
 };
 
