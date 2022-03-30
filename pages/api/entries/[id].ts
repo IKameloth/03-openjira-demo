@@ -22,8 +22,8 @@ export default function handler(
   switch (req.method) {
     case "PUT":
       return updateEntry(req, res);
-      break;
-
+    case "GET":
+      return getEntry(req, res);
     default:
       return res.status(400).json({ message: "bad request" });
   }
@@ -58,4 +58,14 @@ const updateEntry = async (req: NextApiRequest, res: NextApiResponse) => {
     await db.disconnect();
     res.status(400).json({ message: err.errors.status.message });
   }
+};
+
+const getEntry = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
+  await db.connect();
+
+  const entry = await Entry.findById(id);
+
+  await db.disconnect();
+  return res.status(200).json(entry);
 };
