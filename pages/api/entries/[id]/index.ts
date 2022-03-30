@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import mongoose from "mongoose";
-import { db } from "../../../database";
-import { Entry, IEntry } from "../../../models";
+import { db } from "../../../../database";
+import { Entry, IEntry } from "../../../../models";
 
 type Data =
   | {
@@ -66,6 +66,10 @@ const getEntry = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const entry = await Entry.findById(id);
 
+  // if (!entry) {
+  //   await db.disconnect();
+  //   return res.status(404).json({ message: "not found" });
+  // }
   await db.disconnect();
   return res.status(200).json(entry);
 };
