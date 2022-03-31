@@ -1,4 +1,5 @@
 import { DragEvent, FC, useContext } from "react";
+import { useRouter } from "next/router";
 import {
   Card,
   CardActionArea,
@@ -7,27 +8,38 @@ import {
   Typography,
 } from "@mui/material";
 import { Entry } from "../../interfaces";
-import { UIContext } from '../../context/ui';
+import { UIContext } from "../../context/ui";
+import { dateFunctions } from '../../utils';
 
 interface Props {
   entry: Entry;
 }
 
 export const EntryCard: FC<Props> = ({ entry }) => {
-
-  const { toggleDragging } = useContext(UIContext)
+  const router = useRouter();
+  const { toggleDragging } = useContext(UIContext);
 
   const onDragStart = (event: DragEvent<HTMLDivElement>) => {
-    event.dataTransfer.setData('text', entry._id)
-    toggleDragging(true)
-  }
+    event.dataTransfer.setData("text", entry._id);
+    toggleDragging(true);
+  };
 
   const onDragEnd = (event: DragEvent<HTMLDivElement>) => {
-    toggleDragging(false)
-  }
+    toggleDragging(false);
+  };
+
+  const onClick = () => {
+    router.push(`/entries/${entry._id}`);
+  };
 
   return (
-    <Card sx={{ marginBottom: 1 }} draggable onDragStart={onDragStart} onDragEnd={onDragEnd}>
+    <Card
+      sx={{ marginBottom: 1 }}
+      draggable
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      onClick={onClick}
+    >
       <CardActionArea>
         <CardContent>
           <Typography sx={{ whiteSpace: "pre-line" }}>
@@ -37,7 +49,7 @@ export const EntryCard: FC<Props> = ({ entry }) => {
         <CardActions
           sx={{ display: "flex", justifyContent: "end", paddingRight: 2 }}
         >
-          <Typography variant="body2">Hace 30 min</Typography>
+          <Typography variant="body2">{dateFunctions.getFormatDistanceToNow(entry.createdAt)}</Typography>
         </CardActions>
       </CardActionArea>
     </Card>

@@ -1,10 +1,11 @@
 import { FC, useContext } from "react";
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
+import NextLink from "next/link";
+import { AppBar, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { UIContext } from '../../context/ui';
+import { UIContext } from "../../context/ui";
 
 export const Navbar: FC = () => {
-  const {openSideMenu} = useContext(UIContext)
+  const { openSideMenu } = useContext(UIContext);
 
   return (
     <AppBar position="sticky">
@@ -12,7 +13,11 @@ export const Navbar: FC = () => {
         <IconButton size="large" edge="start" onClick={openSideMenu}>
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6">OpenJira</Typography>
+        <NextLink href="/" passHref>
+          <Link underline="none">
+            <Typography variant="h6" color="white">OpenJira</Typography>
+          </Link>
+        </NextLink>
       </Toolbar>
     </AppBar>
   );
